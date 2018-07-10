@@ -191,5 +191,11 @@ bot.dialog('launchesByYear', [
  * @todo display latest launch
  */
 
-bot.dialog('Dialog3', (session) => session.endDialog("Coming soon"))
+bot.dialog('Dialog3', (session) => {
+    let latest = SpacexController.getLastLaunch()
+        .then((result) => {
+            console.log(result)
+        })   
+    session.endDialog("Coming soon")
+})
 
