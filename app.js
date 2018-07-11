@@ -8,6 +8,7 @@ const builder = require('botbuilder')
 
 var SpacexController = require('./controllers/spacexApi.controller')
 var companyInfoCard = require('./cards-samples/company.card')
+var latestCard = require('./cards-samples/latest.card') 
 
 //Initialize restify server
 let server = restify.createServer();
@@ -195,7 +196,9 @@ bot.dialog('Dialog3', (session) => {
     let latest = SpacexController.getLastLaunch()
         .then((result) => {
             console.log(result)
-        })   
-    session.endDialog("Coming soon")
+            let msg = new builder.Message(session)
+                .addAttachment(latestCard.getCard(result))
+            session.endDialog(msg)
+        })
 })
 
