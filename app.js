@@ -26,15 +26,6 @@ let connector = new builder.ChatConnector({
 //Set Api Route
 server.post('/api/messages', connector.listen())
 
-bot.on('conversationUpdate', function (message) {
-    if (message.membersAdded) {
-        message.membersAdded.forEach(function (identity) {
-            if (identity.id === message.address.bot.id) {
-                bot.beginDialog(message.address, 'greetings');
-            }
-        });
-    }
-});
 //Initialize in memory storage to save info locally
 let inMemoryStorage = new builder.MemoryBotStorage()
 
@@ -91,6 +82,15 @@ let bot = new builder.UniversalBot(connector, [
     },
 ]).set('storage', inMemoryStorage)
 
+bot.on('conversationUpdate', function (message) {
+    if (message.membersAdded) {
+        message.membersAdded.forEach(function (identity) {
+            if (identity.id === message.address.bot.id) {
+                bot.beginDialog(message.address, '/');
+            }
+        });
+    }
+});
 /**
  * New dialog to get User name
  * Saved directly in session.userData 
@@ -123,7 +123,10 @@ bot.dialog('greetings', [
 bot.dialog('menu', [
     (session) => {
 
-        builder.Prompts.choice(session, `Hey ${session.userData.profile.name}, please choose an option bellow`, menuItems, { listStyle: 3 })
+        if(session.userData.profile.name){
+            builder.Prompts.choice(session, `Hey ${session.userData.profile.name}, please choose an option bellow`, menuItems, { listStyle: 3 })}
+        else{
+            builder.Prompts.choice(session, `Hey, please choose an option bellow`, menuItems, { listStyle: 3 })}
     },
     (session, results) => {
         let choice = results.response.entity
@@ -131,8 +134,9 @@ bot.dialog('menu', [
 
         session.beginDialog(item)
     }
-])
-
+]).triggerAction({
+    matches: /^help$/i
+})
 // Dialog, show Company infos
 bot.dialog('getCompanyInfo', [
     (session) => {
@@ -146,7 +150,9 @@ bot.dialog('getCompanyInfo', [
                 session.send("Oups, an error occured, " + err)
             })  
     }
-])
+]).triggerAction({
+    matches: /company/i
+})
 
 /**
  * Dialog ask Year to display and display all launches for this Year. 
@@ -202,7 +208,9 @@ bot.dialog('launchesByYear', [
             })
 
     }
-])
+]).triggerAction({
+    matches: /year/i
+})
 
 /**
  * @todo Implement this Dialog
@@ -217,5 +225,7 @@ bot.dialog('Dialog3', (session) => {
                 .addAttachment(latestCard.getCard(result))
             session.endDialog(msg)
         })
+}).triggerAction({
+    matches: /last/i
 })
 
