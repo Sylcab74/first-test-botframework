@@ -26,6 +26,15 @@ let connector = new builder.ChatConnector({
 //Set Api Route
 server.post('/api/messages', connector.listen())
 
+bot.on('conversationUpdate', function (message) {
+    if (message.membersAdded) {
+        message.membersAdded.forEach(function (identity) {
+            if (identity.id === message.address.bot.id) {
+                bot.beginDialog(message.address, 'greetings');
+            }
+        });
+    }
+});
 //Initialize in memory storage to save info locally
 let inMemoryStorage = new builder.MemoryBotStorage()
 
@@ -162,9 +171,17 @@ bot.dialog('launchesByYear', [
                 let cardsAttachment = [];
                 result.reverse()
                 result.forEach((flight, index) => {
-
+                    let success;
+                    let color;
+                    if(flight.launch_success){
+                        success = "Successful"
+                        color = "#11b92f"
+                    }else{
+                        success = "Failed"
+                        color = "#FF0000"
+                    }
                     let flightHero = new builder.HeroCard(session)
-                        .title(`Flight n°${flight.flight_number}`)
+                        .title(`Flight n°${flight.flight_number}<font color=\"${color}"\> ${success} </font>`)
                         .subtitle(flight.details)
                         .images([builder.CardImage.create(session, flight.links.mission_patch_small)])
                         .buttons([

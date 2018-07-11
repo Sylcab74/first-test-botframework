@@ -28,6 +28,7 @@ exports.getLaunchesByYears = async (year = "2018") => {
         axios.get( `${options.url}launches?launch_year=${year}`)
            
             .then((response) => {
+                //console.log(response.data)
                 resolve(response.data)
             })
            
