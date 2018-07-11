@@ -26,15 +26,6 @@ let connector = new builder.ChatConnector({
 //Set Api Route
 server.post('/api/messages', connector.listen())
 
-bot.on('conversationUpdate', function (message) {
-    if (message.membersAdded) {
-        message.membersAdded.forEach(function (identity) {
-            if (identity.id === message.address.bot.id) {
-                bot.beginDialog(message.address, 'greetings');
-            }
-        });
-    }
-});
 //Initialize in memory storage to save info locally
 let inMemoryStorage = new builder.MemoryBotStorage()
 
