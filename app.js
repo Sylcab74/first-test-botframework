@@ -37,7 +37,7 @@ let menuItems = {
     "Display launches by year": {
         item: 'launchesByYear'
     },
-    "latest (coming soon)": {
+    "latest": {
         item: 'Dialog3'
     }
 }
@@ -112,9 +112,8 @@ bot.dialog('greetings', [
     (session, results) => {
         if (results.response) {
             session.userData.profile.name = results.response
-            session.send(`Hey ${session.userData.profile.name}`)
+            session.beginDialog('menu', session.userData.profile)
         }
-        session.endDialogWithResult({ response: session.userData.profile })
     }
 ])
 
@@ -191,8 +190,7 @@ bot.dialog('launchesByYear', [
                         .subtitle(flight.details)
                         .images([builder.CardImage.create(session, flight.links.mission_patch_small)])
                         .buttons([
-                            builder.CardAction.openUrl(session, flight.links.article_link, "To the full article"),
-                            builder.CardAction.imBack(session, `launch${flight.flight_number}`, "Details (coming soon)")
+                            builder.CardAction.openUrl(session, flight.links.article_link, "To the full article")
                         ])
 
                     cardsAttachment.push(flightHero)
@@ -228,4 +226,3 @@ bot.dialog('Dialog3', (session) => {
 }).triggerAction({
     matches: /last/i
 })
-
