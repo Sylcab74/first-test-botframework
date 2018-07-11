@@ -34,13 +34,30 @@ exports.getCard = (data) => {
                             "items": [
                                 {
                                     "type": "TextBlock",
-                                    "text": "Click here to play another game of Spider in Microsoft Solitaire Collection!",
+                                    "text": "Mission Name: " + data.mission_name,
+                                    "weight": "bolder",
+                                    "isTitle": true,
+                                    "size": "large",
+                                    "color": "light",
+                                    "wrap": true
+                                },
+                                {
+                                    "type": "TextBlock",
+                                    "spacing": "none",
+                                    "text": "Date: " + "{{DATE(" + data.launch_date_local + ", SHORT)}}",
+                                    "wrap": true,
+                                    "color": "light",
+                                    "size": "default"
+                                },
+                                {
+                                    "type": "TextBlock",
+                                    "text": data.details,
                                     "color": "light",
                                     "weight": "bolder",
                                     "wrap": true,
                                     "size": "default",
                                     "horizontalAlignment": "center"
-                                }
+                                },
                             ]
                         }
                     ]
