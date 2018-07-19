@@ -1,238 +1,67 @@
 
-exports.getCard = (data) => {
+exports.getCard = (flights) => {
 
     var testCard = {
         "type": "message",
-        "text": "Here are a few scuba diving schools near Seattle, WA. Would you like to book a reservation with one?",
+        "text": "Here are all launches of the selected year",
         "attachmentLayout": "carousel",
-        "attachments": [
-            {
-                "contentType": "application/vnd.microsoft.card.adaptive",
-                "content": {
-                    "type": "AdaptiveCard",
-                    "body": [
-                        {
-                            "type": "ColumnSet",
-                            "columns": [
-                                {
-                                    "type": "Column",
-                                    "size": "auto",
-                                    "items": [
-                                        {
-                                            "type": "Image",
-                                            "size": "medium",
-                                            "url": "http://adaptivecards.io/content/FabrikamLogo.png"
-                                        }
-                                    ]
-                                },
-                                {
-                                    "type": "Column",
-                                    "items": [
-                                        {
-                                            "type": "TextBlock",
-                                            "text": "Fabrikam",
-                                            "size": "large",
-                                            "weight": "bolder"
-                                        },
-                                        {
-                                            "type": "TextBlock",
-                                            "text": "4.1 stars",
-                                            "separation": "none"
-                                        }
-                                    ]
-                                }
-                            ]
-                        },
-                        {
-                            "type": "TextBlock",
-                            "text": "13 miles away",
-                            "weight": "bolder"
-                        },
-                        {
-                            "type": "TextBlock",
-                            "text": "217 W Pine St.",
-                            "separation": "none"
-                        },
-                        {
-                            "type": "TextBlock",
-                            "text": "Seattle, WA 98126",
-                            "separation": "none"
-                        }
-                    ]
-                }
-            },
-            {
-                "contentType": "application/vnd.microsoft.card.adaptive",
-                "content": {
-                    "type": "AdaptiveCard",
-                    "body": [
-                        {
-                            "type": "ColumnSet",
-                            "columns": [
-                                {
-                                    "type": "Column",
-                                    "size": "auto",
-                                    "items": [
-                                        {
-                                            "type": "Image",
-                                            "size": "medium",
-                                            "url": "http://adaptivecards.io/content/MargiesTravel.png"
-                                        }
-                                    ]
-                                },
-                                {
-                                    "type": "Column",
-                                    "items": [
-                                        {
-                                            "type": "TextBlock",
-                                            "text": "Margie's Travel",
-                                            "size": "large",
-                                            "weight": "bolder"
-                                        },
-                                        {
-                                            "type": "TextBlock",
-                                            "text": "4.4 stars",
-                                            "separation": "none"
-                                        }
-                                    ]
-                                }
-                            ]
-                        },
-                        {
-                            "type": "TextBlock",
-                            "text": "42 miles away",
-                            "weight": "bolder"
-                        },
-                        {
-                            "type": "TextBlock",
-                            "text": "1602 E Avenue Rd.",
-                            "separation": "none"
-                        },
-                        {
-                            "type": "TextBlock",
-                            "text": "Gig Harbor, WA 98335",
-                            "separation": "none"
-                        }
-                    ]
-                }
-            },
-            {
-                "contentType": "application/vnd.microsoft.card.adaptive",
-                "content": {
-                    "type": "AdaptiveCard",
-                    "body": [
-                        {
-                            "type": "ColumnSet",
-                            "columns": [
-                                {
-                                    "type": "Column",
-                                    "size": "auto",
-                                    "items": [
-                                        {
-                                            "type": "Image",
-                                            "size": "medium",
-                                            "url": "http://adaptivecards.io/content/Relecloud.png"
-                                        }
-                                    ]
-                                },
-                                {
-                                    "type": "Column",
-                                    "items": [
-                                        {
-                                            "type": "TextBlock",
-                                            "text": "Relecloud Diving",
-                                            "size": "large",
-                                            "weight": "bolder"
-                                        },
-                                        {
-                                            "type": "TextBlock",
-                                            "text": "4.7 stars",
-                                            "separation": "none"
-                                        }
-                                    ]
-                                }
-                            ]
-                        },
-                        {
-                            "type": "TextBlock",
-                            "text": "15 miles away",
-                            "weight": "bolder"
-                        },
-                        {
-                            "type": "TextBlock",
-                            "text": "1210 W Hanford St.",
-                            "separation": "none"
-                        },
-                        {
-                            "type": "TextBlock",
-                            "text": "Seattle, WA 98105",
-                            "separation": "none"
-                        }
-                    ]
-                }
-            },
-        ]
+        "attachments": getAll(flights)
     }
-
     return testCard
 
 }
+getAll = (flights) => {
+    console.log(flights)
+    let attachments = []
+    flights.forEach(flight => {
+        attachments.push(getAdaptative(flight))
+    });
 
-getAdaptative = (data) => {
-        let adaptive =
-        { 
-        "contentType": "application/vnd.microsoft.card.adaptive",
-        "content": {
-            "type": "AdaptiveCard",
-            "body": [
-                {
-                    "type": "ColumnSet",
-                    "columns": [
-                        {
-                            "type": "Column",
-                            "size": "auto",
-                            "items": [
-                                {
-                                    "type": "Image",
-                                    "size": "medium",
-                                    "url": "http://adaptivecards.io/content/AdventureWorksLogo.png"
-                                }
-                            ]
-                        },
-                        {
-                            "type": "Column",
-                            "items": [
-                                {
-                                    "type": "TextBlock",
-                                    "text": "Adventure Works",
-                                    "size": "large",
-                                    "weight": "bolder"
-                                },
-                                {
-                                    "type": "TextBlock",
-                                    "text": "3.2 stars",
-                                    "separation": "none"
-                                }
-                            ]
-                        }
-                    ]
-                },
-                {
-                    "type": "TextBlock",
-                    "text": "7 miles away",
-                    "weight": "bolder"
-                },
-                {
-                    "type": "TextBlock",
-                    "text": "510 N Yale Ave.",
-                    "separation": "none"
-                },
-                {
-                    "type": "TextBlock",
-                    "text": "Seattle, WA 98127",
-                    "separation": "none"
-                }
-            ]
-        }
+    return attachments
+}
+
+getAdaptative = (flight) => {
+    let adaptive =
+    { 
+    "contentType": "application/vnd.microsoft.card.adaptive",
+    "content": {
+        "type": "AdaptiveCard",
+        "body": [
+            {
+                "type": "ColumnSet",
+                "columns": [
+                    {
+                        "type": "Column",
+                        "size": "auto",
+                        "items": [
+                            {
+                                "type": "Image",
+                                "size": "large",
+                                "url": flight.links.mission_patch
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "type": "TextBlock",
+                "text": flight.launch_success ? "success" : "failed",
+                "weight": "bolder",
+                "color": flight.launch_success ? "good" : "warning"
+            },
+            {
+                "type": "TextBlock",
+                "text": "510 N Yale Ave.",
+                "separation": "none"
+            },
+            {
+                "type": "TextBlock",
+                "text": "Seattle, WA 98127",
+                "separation": "none"
+            }
+        ]
     }
+}
+
+return adaptive
 }

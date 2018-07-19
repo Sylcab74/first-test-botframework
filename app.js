@@ -198,7 +198,7 @@ bot.dialog('launchesByYear', [
                 })
                 msg.attachmentLayout(builder.AttachmentLayout.carousel)
                 msg.attachments(cardsAttachment)*/
-                let msg = testCard.getCard()
+                let msg = testCard.getCard(result)
                 session.send(msg)       
                 session.endDialogWithResult({ response: session.userData.profile })
             })
