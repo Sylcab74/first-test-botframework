@@ -47,7 +47,9 @@ getAdaptative = (flight) => {
                         "type": "TextBlock",
                         "text": flight.launch_success ? "success" : "failed",
                         "weight": "bolder",
-                        "color": flight.launch_success ? "good" : "warning"
+                        "color": flight.launch_success ? "good" : "warning",
+                        "horizontalAlignment": "center",
+                        "size": "extraLarge"
                     },
                     {
                         "type": "TextBlock",
