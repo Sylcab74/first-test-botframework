@@ -9,6 +9,7 @@ const builder = require('botbuilder')
 var SpacexController = require('./controllers/spacexApi.controller')
 var companyInfoCard = require('./cards-samples/company.card')
 var latestCard = require('./cards-samples/latest.card') 
+var testCard = require('./cards-samples/test.card')
 
 //Initialize restify server
 let server = restify.createServer();
@@ -38,7 +39,7 @@ let menuItems = {
         item: 'launchesByYear'
     },
     "latest": {
-        item: 'Dialog3'
+        item: 'latest'
     }
 }
 
@@ -172,7 +173,7 @@ bot.dialog('launchesByYear', [
         SpacexController.getLaunchesByYears(results.response.entity ? results.response.entity : "2018")
             .then((result) => {
 
-                let msg = new builder.Message(session);
+                /*let msg = new builder.Message(session);
                 let cardsAttachment = [];
                 result.reverse()
                 result.forEach((flight, index) => {
@@ -196,7 +197,8 @@ bot.dialog('launchesByYear', [
                     cardsAttachment.push(flightHero)
                 })
                 msg.attachmentLayout(builder.AttachmentLayout.carousel)
-                msg.attachments(cardsAttachment)
+                msg.attachments(cardsAttachment)*/
+                let msg = testCard.getCard()
                 session.send(msg)       
                 session.endDialogWithResult({ response: session.userData.profile })
             })
@@ -215,7 +217,7 @@ bot.dialog('launchesByYear', [
  * @todo display latest launch
  */
 
-bot.dialog('Dialog3', (session) => {
+bot.dialog('latest', (session) => {
     let latest = SpacexController.getLastLaunch()
         .then((result) => {
             console.log(result)
