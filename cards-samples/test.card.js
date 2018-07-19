@@ -29,27 +29,19 @@ getAdaptative = (flight) => {
             "content": {
                 "type": "AdaptiveCard",
                 "body": [
+
+
                     {
-                        "type": "ColumnSet",
-                        "columns": [
-                            {
-                                "type": "Column",
-                                "size": "auto",
-                                "items": [
-                                    {
-                                        "type": "Image",
-                                        "size": "large",
-                                        "url": flight.links.mission_patch,
-                                        "horizontalAlignment": "center",
-                                        "selectAction": {
-                                            "type": "Action.OpenUrl",
-                                            "title": "Web link",
-                                            "url": flight.links.article_link
-                                        }
-                                    }
-                                ]
-                            }
-                        ]
+                        "type": "Image",
+                        "size": "large",
+                        "url": flight.links.mission_patch,
+                        "horizontalAlignment": "center",
+                        "selectAction": {
+                            "type": "Action.OpenUrl",
+                            "title": "Web link",
+                            "url": flight.links.article_link
+                        }
+
                     },
                     {
                         "type": "TextBlock",
@@ -76,13 +68,13 @@ getAdaptative = (flight) => {
                                     "facts": [
                                         {
                                             "title": "Mission :",
-                                            "value":  flight.mission_name
+                                            "value": flight.mission_name
                                         },
                                         {
                                             "title": "Site :",
                                             "value": flight.launch_site.site_name_long
                                         },
-                                        
+
                                     ]
                                 }
                             ],

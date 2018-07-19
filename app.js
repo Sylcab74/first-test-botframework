@@ -172,32 +172,6 @@ bot.dialog('launchesByYear', [
 
         SpacexController.getLaunchesByYears(results.response.entity ? results.response.entity : "2018")
             .then((result) => {
-
-                /*let msg = new builder.Message(session);
-                let cardsAttachment = [];
-                result.reverse()
-                result.forEach((flight, index) => {
-                    let success;
-                    let color;
-                    if(flight.launch_success){
-                        success = "Successful"
-                        color = "#11b92f"
-                    }else{
-                        success = "Failed"
-                        color = "#FF0000"
-                    }
-                    let flightHero = new builder.HeroCard(session)
-                        .title(`Flight n°${flight.flight_number}<font color=\"${color}"\> ${success} </font>`)
-                        .subtitle(flight.details)
-                        .images([builder.CardImage.create(session, flight.links.mission_patch_small)])
-                        .buttons([
-                            builder.CardAction.openUrl(session, flight.links.article_link, "To the full article")
-                        ])
-
-                    cardsAttachment.push(flightHero)
-                })
-                msg.attachmentLayout(builder.AttachmentLayout.carousel)
-                msg.attachments(cardsAttachment)*/
                 let msg = testCard.getCard(result)
                 session.send(msg)       
                 session.endDialogWithResult({ response: session.userData.profile })
