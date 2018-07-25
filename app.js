@@ -10,6 +10,7 @@ var SpacexController = require('./controllers/spacexApi.controller')
 var companyInfoCard = require('./cards-samples/company.card')
 var latestCard = require('./cards-samples/latest.card') 
 var testCard = require('./cards-samples/test.card')
+var errorCard = require('./cards-samples/error.card')
 
 //Initialize restify server
 let server = restify.createServer();
@@ -147,7 +148,11 @@ bot.dialog('getCompanyInfo', [
                     .addAttachment(companyInfoCard.getCard(result))
                 session.endDialog(msg)
             }, (err) => {
-                session.send("Oups, an error occured, " + err)
+                console.log(err.message)
+                msg = new builder.Message(session)
+                    .addAttachment(errorCard.getCard(err))
+                session.send(msg)
+                session.endDialog()
             })  
     }
 ]).triggerAction({
@@ -172,12 +177,14 @@ bot.dialog('launchesByYear', [
 
         SpacexController.getLaunchesByYears(results.response.entity ? results.response.entity : "2018")
             .then((result) => {
+
                 let msg = testCard.getCard(result)
                 session.send(msg)       
                 session.endDialogWithResult({ response: session.userData.profile })
-            })
-            .catch((err) => {
-                session.send(err)
+            }, (err) =>{
+                msg = new builder.Message(session)
+                    .addAttachment(errorCard.getCard(err))
+                session.send(msg)
                 session.endDialog()
             })
 
@@ -198,6 +205,12 @@ bot.dialog('latest', (session) => {
             let msg = new builder.Message(session)
                 .addAttachment(latestCard.getCard(result))
             session.endDialog(msg)
+        })
+        .catch((err) => {
+            msg = new builder.Message(session)
+                    .addAttachment(errorCard.getCard(err))
+                session.send(msg)
+                session.endDialog()
         })
 }).triggerAction({
     matches: /last/i

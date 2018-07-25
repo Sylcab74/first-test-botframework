@@ -2,10 +2,6 @@
 
 exports.getCard = (data) => {
 
-    console.log("##########")
-    console.log(data)
-    console.log("##########")
-
     var latestCard = {
         'contentType': 'application/vnd.microsoft.card.adaptive',
         "content": {
@@ -65,25 +61,25 @@ exports.getCard = (data) => {
             ],
             "actions": [
                 {
-                "type": "Action.ShowCard",
-                "title": "Details",
-                "color": "light",
-                "card": {
-                    "type": "AdaptiveCard",
-                    "body": [
-                    {
-                        "type": "TextBlock",
-                        "spacing": "none",
-                        "text": "Site: " + data.launch_site.site_name_long,
-                        "wrap": true,
-                        "color": "light",
-                        "size": "default"
+                    "type": "Action.ShowCard",
+                    "title": "Details",
+                    "color": "light",
+                    "card": {
+                        "type": "AdaptiveCard",
+                        "body": [
+                            {
+                                "type": "TextBlock",
+                                "spacing": "none",
+                                "text": "Site: " + data.launch_site.site_name_long,
+                                "wrap": true,
+                                "color": "light",
+                                "size": "default"
+                            }
+                        ],
+                    }
+
                 }
-            ],
-        }
-    
-    }
-]  
+            ]
         }
     }
 
